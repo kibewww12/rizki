@@ -1,11 +1,11 @@
 // Daftar produk dengan gambar 
 const products = [
     { id: 1, name: 'ALAMI', price: 2000, img: 'c:\Users\LABTKJ01\Pictures\happy tos.htm' },
-    { id: 2, name: 'KUSUKA', price: 3000, img: 'img/ks.jpg' },
-    { id: 3, name: 'HAPPY TOS', price: 5000, img: 'img/hts.jpg' },
-    { id: 4, name: 'icitan', price: 5000, img: 'img/minuman.jpg' },
-    { id: 5, name: 'NESCAFE', price: 5000, img: 'img/nes.jpg' },
-    { id: 6, name: 'PULPY', price: 5000, img: 'img/pp.jpg' },
+    { id: 2, name: 'KUSUKA', price: 3000, img: 'ks.jpg' },
+    { id: 3, name: 'HAPPY TOS', price: 5000, img: 'hts.jpg' },
+    { id: 4, name: 'icitan', price: 5000, img: 'minuman.jpg' },
+    { id: 5, name: 'NESCAFE', price: 5000, img: 'nes.jpg' },
+    { id: 6, name: 'PULPY', price: 5000, img: 'pp.jpg' },
 
 
 ];
