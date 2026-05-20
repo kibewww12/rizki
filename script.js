@@ -1,79 +1,103 @@
-// Daftar produk dengan gambar 
+// Daftar produk dengan gambar
 const products = [
-    { id: 1, name: 'ALAMI', price: 2000, img: 'c:\Users\LABTKJ01\Pictures\happy tos.htm' },
+    { id: 1, name: 'ALAMI', price: 2000, img: 'alami.jpg' },
     { id: 2, name: 'KUSUKA', price: 3000, img: 'ks.jpg' },
     { id: 3, name: 'HAPPY TOS', price: 5000, img: 'hts.jpg' },
-    { id: 4, name: 'icitan', price: 5000, img: 'minuman.jpg' },
+    { id: 4, name: 'ICITAN', price: 5000, img: 'minuman.jpg' },
     { id: 5, name: 'NESCAFE', price: 5000, img: 'nes.jpg' },
     { id: 6, name: 'PULPY', price: 5000, img: 'pp.jpg' },
-
-
 ];
 
-// keranjang belanja
+// Keranjang belanja
 let cart = [];
 
-// fungsi untuk menampilkan dartar produk
-function displayproducts() {
-    const poductscontainer = document.getElementById('products');
+// Fungsi untuk menampilkan daftar produk
+function displayProducts() {
+    const productsContainer = document.getElementById('products');
+
     products.forEach(product => {
         const productDiv = document.createElement('div');
         productDiv.classList.add('product');
-        productDiv.innerHTML = `...
+
+        productDiv.innerHTML = `
+            <img src="${product.img}" width="100">
+            <h3>${product.name}</h3>
+            <p>Rp ${product.price}</p>
+            <button onclick="addToCart(${product.id})">
+                Tambah ke Keranjang
+            </button>
         `;
-        productscontainer.appendchild(productDiv);
+
+        productsContainer.appendChild(productDiv);
     });
 }
 
-// fungsi untuk menambah produk ke keranjang belanja
-function addTonCart(productId) {
+// Fungsi untuk menambah produk ke keranjang
+function addToCart(productId) {
     const product = products.find(p => p.id === productId);
+
     const cartItem = cart.find(item => item.id === productId);
 
     if (cartItem) {
         cartItem.quantity += 1;
     } else {
-        cart.push({ ...product, quantity: 1});
+        cart.push({ ...product, quantity: 1 });
     }
+
     updateCart();
 }
 
-// fungsi untuk menampilkan isi keranjang belanja
+// Fungsi untuk menampilkan isi keranjang
 function updateCart() {
-    const cartItemContainer = document.getElementById('catr-items');
-    catrItemsContainer.innerHTML ='';
+    const cartItemsContainer = document.getElementById('cart-items');
 
-    let totalprice = 0;
+    cartItemsContainer.innerHTML = '';
+
+    let totalPrice = 0;
+
     cart.forEach(item => {
         const listItem = document.createElement('li');
-        listItem.textContent =`${item.name} x ${item.quantity} - Rp ${item.price * item.quantity}`;
-        
-        totalprice += item.price * item.quantity;
+
+        listItem.textContent =
+            `${item.name} x ${item.quantity} - Rp ${item.price * item.quantity}`;
+
+        cartItemsContainer.appendChild(listItem);
+
+        totalPrice += item.price * item.quantity;
     });
 
-    document.getElementById('total-price').textContent =totalprice;
+    document.getElementById('total-price').textContent = totalPrice;
 }
 
-// fungsi untuk melakukan checkout
+// Fungsi checkout
 function checkout() {
     if (cart.length === 0) {
-        alert('keranjang anda kosong.');
+        alert('Keranjang anda kosong.');
         return;
     }
 
-    const total = cart.reduce((sum,item) => sum + item.price * item.quantity, 0);
-    const payment = promt('total belanja anda Rp ${total}. masukan jumlah pembayaran:');
+    const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
+
+    const payment = prompt(
+        `Total belanja anda Rp ${total}. Masukkan jumlah pembayaran:`
+    );
 
     if (payment >= total) {
-        alert('pembayaran berhasil kembalian anda: Rp ${payment - total}`');
+        alert(
+            `Pembayaran berhasil. Kembalian anda: Rp ${payment - total}`
+        );
+
+        cart = [];
         updateCart();
     } else {
-        alert('uang anda tidak mencukupi.');
+        alert('Uang anda tidak mencukupi.');
     }
 }
 
-// Event listener untuk tombol checkout
-document.getElementById('checkout-btn').addEventListener('click', checkout);
-
-// tampilkan produk saat halaman dimuat
-displayproducts();
+// Event tombol checkout
+document
+    .getElementById('checkout-btn')
+    .addEventListener('click', checkout);
